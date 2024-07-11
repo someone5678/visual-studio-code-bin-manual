@@ -1,6 +1,7 @@
 # Maintainer: D. Can Celasun <can[at]dcc[dot]im>
 
-pkgname=visual-studio-code-bin
+pkgname=visual-studio-code-bin-manual
+pkgname_build=visual-studio-code-bin
 _pkgname=visual-studio-code
 pkgver=1.96.0
 pkgrel=1
@@ -8,9 +9,9 @@ pkgdesc="Visual Studio Code (vscode): Editor for building and debugging modern w
 arch=('x86_64' 'aarch64' 'armv7h')
 url="https://code.visualstudio.com/"
 license=('custom: commercial')
-provides=('code' 'vscode')
+provides=('code' 'vscode' 'visual-studio-code-bin')
 conflicts=('code')
-install=$pkgname.install
+install=$pkgname_build.install
 # lsof: needed for terminal splitting, see https://github.com/Microsoft/vscode/issues/62991
 # xdg-utils: needed for opening web links with xdg-open
 depends=(libxkbfile gnupg gtk3 libsecret nss gcc-libs libnotify libxss glibc lsof shared-mime-info xdg-utils alsa-lib)
@@ -27,13 +28,13 @@ source_x86_64=(code_x64_${pkgver}.tar.gz::https://update.code.visualstudio.com/$
 source_aarch64=(code_arm64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-arm64/stable)
 source_armv7h=(code_armhf_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-armhf/stable)
 
-sha256sums=('dc64d1c6bb4a0cb2aae24dcd2d742178428f2849dab60074194e5603d32be745'
-            'c361efa7e02fcad759ed80d2fbab67877f33219b981578af6fffaf18aeb12d9b'
-            '3af748dd6578a1775e8eb7248ba397b7e11840df2ea6ee234ff76fee3dc306cf'
-            '8257a5ad82fa1f7dec11dfa064217b80df4cfec24f50cec7ca0ad62cf8295bfe')
-sha256sums_x86_64=('f35335d59b7c35f290bcb809e7a323cff217b66e6a40932b7697ddcc3db8761d')
-sha256sums_aarch64=('691a6de01a3008d4f65b1a6c7f6de8f9de707fbe391a2427d97968b8472f1a69')
-sha256sums_armv7h=('40b1ac0dec2077cd61ecb3ab8ab21c201b63033ef6ee29ec3cd16ee88e3b0f09')
+sha256sums=('SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
+sha256sums_x86_64=('SKIP')
+sha256sums_aarch64=('SKIP')
+sha256sums_armv7h=('SKIP')
 
 _set_meta_info() {
   sed 's/@@NAME_LONG@@/Visual Studio Code/g' "$1" |\
@@ -85,7 +86,7 @@ package() {
   install -m644 "${srcdir}/$(_pkg)/resources/app/resources/linux/code.png" "${pkgdir}/usr/share/icons/${_pkgname}.png"
   install -m644 "${srcdir}/code.desktop" "${pkgdir}/usr/share/applications/code.desktop"
   install -m644 "${srcdir}/code-url-handler.desktop" "${pkgdir}/usr/share/applications/code-url-handler.desktop"
-  install -m644 "${srcdir}/code-workspace.xml" "${pkgdir}/usr/share/mime/packages/${pkgname}-workspace.xml"
+  install -m644 "${srcdir}/code-workspace.xml" "${pkgdir}/usr/share/mime/packages/${pkgname_build}-workspace.xml"
   install -Dm 644 "${srcdir}/$(_pkg)/resources/completions/bash/code" "${pkgdir}/usr/share/bash-completion/completions/code"
   install -Dm 644 "${srcdir}/$(_pkg)/resources/completions/zsh/_code" "${pkgdir}/usr/share/zsh/site-functions/_code"
 
