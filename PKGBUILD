@@ -1,9 +1,25 @@
 # Maintainer: D. Can Celasun <can[at]dcc[dot]im>
 
+_carch() {
+  if [ "${CARCH}" = "aarch64" ]; then
+    echo 'arm64'
+  elif [ "${CARCH}" = "armv7h" ]; then
+    echo 'armhf'
+  elif [ "${CARCH}" = "i686" ]; then
+    echo 'ia32'
+  else
+    echo 'x64'
+  fi
+}
+
+pkgver() {
+  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP '(?<=code_).*(?=-.*_amd64.deb)')
+}
+
 pkgname=visual-studio-code-bin-manual
 pkgname_build=visual-studio-code-bin
 _pkgname=visual-studio-code
-pkgver=1.94.1
+pkgver=$(pkgver)
 pkgrel=1
 pkgdesc="Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official binary version)"
 arch=('x86_64' 'aarch64' 'armv7h')
@@ -46,15 +62,7 @@ _set_meta_info() {
 }
 
 _pkg() {
-  if [ "${CARCH}" = "aarch64" ]; then
-    echo 'VSCode-linux-arm64'
-  elif [ "${CARCH}" = "armv7h" ]; then
-    echo 'VSCode-linux-armhf'
-  elif [ "${CARCH}" = "i686" ]; then
-    echo 'VSCode-linux-ia32'
-  else
-    echo 'VSCode-linux-x64'
-  fi
+  echo "VSCode-linux-$(_carch)"
 }
 
 prepare() {
@@ -64,17 +72,6 @@ prepare() {
 }
 
 package() {
-  _pkg=VSCode-linux-x64
-  if [ "${CARCH}" = "aarch64" ]; then
-    _pkg=VSCode-linux-arm64
-  fi
-  if [ "${CARCH}" = "armv7h" ]; then
-    _pkg=VSCode-linux-armhf
-  fi
-  if [ "${CARCH}" = "i686" ]; then
-    _pkg=VSCode-linux-ia32
-  fi
-
   install -d "${pkgdir}/usr/share/licenses/${_pkgname}"
   install -d "${pkgdir}/opt/${_pkgname}"
   install -d "${pkgdir}/usr/bin"
