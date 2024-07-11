@@ -1,2 +1,6 @@
 *.in
+*.pkg.tar.zst
+*.tar.gz
 .xml
+pkg
+src
