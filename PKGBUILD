@@ -1,9 +1,25 @@
 # Maintainer: D. Can Celasun <can[at]dcc[dot]im>
 
+_carch() {
+  if [ "${CARCH}" = "aarch64" ]; then
+    echo 'arm64'
+  elif [ "${CARCH}" = "armv7h" ]; then
+    echo 'armhf'
+  elif [ "${CARCH}" = "i686" ]; then
+    echo 'ia32'
+  else
+    echo 'x64'
+  fi
+}
+
+pkgver() {
+  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP '(?<=code_).*(?=-.*_amd64.deb)')
+}
+
 pkgname=visual-studio-code-bin-manual
 pkgname_build=visual-studio-code-bin
 _pkgname=visual-studio-code
-pkgver=1.103.2
+pkgver=$(pkgver)
 pkgrel=1
 pkgdesc="Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official binary version)"
 arch=('x86_64' 'aarch64' 'armv7h')
@@ -55,13 +71,7 @@ prepare() {
 }
 
 _pkg() {
-  if [ "${CARCH}" = "aarch64" ]; then
-    echo 'VSCode-linux-arm64'
-  elif [ "${CARCH}" = "armv7h" ]; then
-    echo 'VSCode-linux-armhf'
-  else
-    echo 'VSCode-linux-x64'
-  fi
+  echo "VSCode-linux-$(_carch)"
 }
 
 package() {
