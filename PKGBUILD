@@ -1,4 +1,4 @@
-# Maintainer: D. Can Celasun <can[at]dcc[dot]im>
+# Maintainer: someone5678 <59456192+someone5678[at]users[dot]noreply[dot]github[dot]com>
 
 _carch() {
   if [ "${CARCH}" = "aarch64" ]; then
