@@ -22,7 +22,7 @@ _pkgname=visual-studio-code
 pkgver=$(pkgver)
 pkgrel=1
 pkgdesc="Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official binary version)"
-arch=('x86_64' 'aarch64' 'armv7h')
+arch=('x86_64' 'i686' 'aarch64' 'armv7h' )
 url="https://code.visualstudio.com/"
 license=('custom: commercial')
 provides=('code' 'vscode' 'visual-studio-code-bin')
@@ -44,6 +44,7 @@ source=(code-${pkgver}.desktop.in::https://raw.githubusercontent.com/microsoft/v
         code-${pkgver}-workspace.xml.in::https://raw.githubusercontent.com/microsoft/vscode/${pkgver}/resources/linux/code-workspace.xml
         ${_pkgname}-bin.sh)
 source_x86_64=(code_x64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable)
+source_i686=(code_ia32_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-ia32/stable)
 source_aarch64=(code_arm64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-arm64/stable)
 source_armv7h=(code_armhf_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-armhf/stable)
 
@@ -52,6 +53,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP')
 sha256sums_x86_64=('SKIP')
+sha256sums_i686=('SKIP')
 sha256sums_aarch64=('SKIP')
 sha256sums_armv7h=('SKIP')
 
