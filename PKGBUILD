@@ -13,7 +13,7 @@ _carch() {
 }
 
 pkgver() {
-  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP '(?<=code_).*(?=-.*_amd64.deb)')
+  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP "(?<=code_).*(?=-.*_$(_carch).deb)")
 }
 
 pkgname=visual-studio-code-bin-manual
