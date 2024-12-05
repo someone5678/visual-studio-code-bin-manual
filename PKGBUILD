@@ -1,11 +1,11 @@
 # Maintainer: someone5678 <59456192+someone5678[at]users[dot]noreply[dot]github[dot]com>
 
 _carch() {
-  if [ "${CARCH}" = "aarch64" ]; then
+  if [[ "${CARCH}" == "aarch64" ]]; then
     echo 'arm64'
-  elif [ "${CARCH}" = "armv7h" ]; then
+  elif [[ "${CARCH}" == "armv7h" ]]; then
     echo 'armhf'
-  elif [ "${CARCH}" = "i686" ]; then
+  elif [[ "${CARCH}" == "i686" ]]; then
     echo 'ia32'
   else
     echo 'x64'
@@ -13,7 +13,7 @@ _carch() {
 }
 
 pkgver() {
-  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP '(?<=code_).*(?=-.*_amd64.deb)')
+  echo $(curl --silent "https://update.code.visualstudio.com/latest/linux-deb-$(_carch)/stable" | grep -oP "(?<=code_).*(?=-.*)")
 }
 
 pkgname=visual-studio-code-bin-manual
